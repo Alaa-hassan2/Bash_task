@@ -1,0 +1,44 @@
+###Script to enter the sum of two integers
+###Exit Codes
+#               0: Success
+#               1: Insuffieicent parameters
+#               2: Not integer
+#Parameters
+NUM1=${1}
+NUM2=${2}
+
+#Checks
+#1 -- Number of parameters
+
+[ ${#} -ne 2 ] && echo "Please Enter Two Parameters"  && exit 1
+
+#2 -- Both parameters are integers
+
+VAR1=$( echo ${NUM1} | grep "^\-\{0,1\}[0-9]\.\{0,1\}[0-9]*$" | wc -l )
+VAR2=$( echo ${NUM2} | grep "^\-\{0,1\}[0-9]\.\{0,1\}[0-9]*$" | wc -l )
+[ ${VAR1} -eq 0 ] || [ ${VAR2} -eq 0 ] && exit 2
+
+#-------SUM----------
+echo "The sum is "
+echo "${NUM1}+${NUM2}" | bc
+echo "----------------------"
+
+
+#------Mutliplication----
+echo "The product is "
+echo "${NUM1}*${NUM2}" | bc
+echo "----------------------"
+
+#------Mutliplication----
+echo "The division is "
+echo "scale =2; ${NUM1}/${NUM2}" | bc
+echo "----------------------"
+
+#-------SUBTRACTION----------
+echo "The difference is "
+echo "${NUM1}-${NUM2}" | bc
+echo "----------------------"
+
+echo "you passed ${#} parameters."
+echo "Parameter 1: ${1}"
+echo "Parameter 2: ${2}"

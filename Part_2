@@ -1,0 +1,28 @@
+#! /bin/bash
+###Script used to monitor system load
+
+U1=$(uptime | cut -f 12 -d' ' | sed 's/,//g')
+U2=$(uptime | cut -f 13 -d' ' | sed 's/,//g')
+U3=$(uptime | cut -f 14 -d' ' | sed 's/,//g')
+IP=$(hostname -I)
+
+echo "1 Min. load is "${U1}
+echo "5 Min. load is "${U2}
+echo "15 Min. load is "${U3}
+
+if (echo "${U1} > ${U2}" |bc -l)
+        then
+                echo "1 Min. load is ${U1} 5 Min. load is ${U2} 15 Min. load is ${U3}" >> /var/log/SystemLoad
+                echo "Dear, 
+                                The system ${HOSTNAME} runs with IP ${IP} has a load of 
+                                1MIN load: ${U1}
+                                5MIN load: ${U2}
+                                15MIN load: ${U3}
+                        Thank you ." >> /tmp/events
+                fi
+
+#------------------------------------------------------------------------------------------------------------------
+#In order to run script every minute
+
+#crontab -e  ========== *	*	*	*	*	./task.sh
+

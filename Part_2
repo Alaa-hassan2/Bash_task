@@ -10,7 +10,7 @@ echo "1 Min. load is "${U1}
 echo "5 Min. load is "${U2}
 echo "15 Min. load is "${U3}
 
-if (echo "${U1} > ${U2}" |bc -l)
+if [ (echo "${U1} > ${U2}" |bc -l) -eq 1 ]
         then
                 echo "1 Min. load is ${U1} 5 Min. load is ${U2} 15 Min. load is ${U3}" >> /var/log/SystemLoad
                 echo "Dear, 
